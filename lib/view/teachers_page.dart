@@ -1,49 +1,35 @@
 import 'package:flutter/material.dart';
 import '../model/teachers/teacher.dart';
+import '../view_model/teachers/teacher_list_view_model.dart';
 import 'teacher_subjects_page.dart';
 
-/// Dummy TeachersPage — lista de profesores con datos dummy.
-/// Al tocar "Ver materias" navega a TeacherSubjectsPage.
-class TeachersPage extends StatelessWidget {
+/// Lista de profesores usando los mocks del [TeacherListViewModel].
+/// Al tocar "Ver materias" navega a [TeacherSubjectsPage].
+class TeachersPage extends StatefulWidget {
   const TeachersPage({super.key});
 
-  static final List<Teacher> _dummyTeachers = [
-    Teacher(
-      id: 't1',
-      firstName: 'Juan Pablo',
-      lastName: 'Gómez',
-      email: 'jp.gomez@uni.edu',
-      phone: '3001234567',
-      department: 'Ingeniería de Sistemas',
-      specialty: 'Software Engineering',
-      createdAt: DateTime(2023, 8, 1),
-      updatedAt: DateTime(2024, 1, 10),
-    ),
-    Teacher(
-      id: 't2',
-      firstName: 'María',
-      lastName: 'López',
-      email: 'm.lopez@uni.edu',
-      phone: '3107654321',
-      department: 'Ingeniería Eléctrica',
-      specialty: 'Redes y Telecomunicaciones',
-      createdAt: DateTime(2023, 8, 1),
-      updatedAt: DateTime(2024, 1, 10),
-    ),
-    Teacher(
-      id: 't3',
-      firstName: 'Carlos',
-      lastName: 'Restrepo',
-      email: 'c.restrepo@uni.edu',
-      department: 'Matemáticas',
-      specialty: 'Álgebra y Cálculo',
-      createdAt: DateTime(2023, 8, 1),
-      updatedAt: DateTime(2024, 1, 10),
-    ),
-  ];
+  @override
+  State<TeachersPage> createState() => _TeachersPageState();
+}
+
+class _TeachersPageState extends State<TeachersPage> {
+  final TeacherListViewModel _viewModel = TeacherListViewModel();
+
+  @override
+  void initState() {
+    super.initState();
+    _viewModel.addListener(() => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _viewModel.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final teachers = _viewModel.filteredTeachers;
     return Scaffold(
       backgroundColor: const Color(0xFF0D1117),
       appBar: AppBar(
@@ -53,10 +39,10 @@ class TeachersPage extends StatelessWidget {
       ),
       body: ListView.separated(
         padding: const EdgeInsets.all(16),
-        itemCount: _dummyTeachers.length,
+        itemCount: teachers.length,
         separatorBuilder: (_, __) => const SizedBox(height: 8),
         itemBuilder: (context, i) {
-          final t = _dummyTeachers[i];
+          final t = teachers[i];
           return Container(
             decoration: BoxDecoration(
               color: const Color(0xFF161B22),
