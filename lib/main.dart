@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 // import 'package:ubook_app/model/subject/subject.dart';
 // import 'model/teachers/teacher.dart';
 // import 'view/teacher_subjects_page.dart';
-import 'view/teachers_page.dart';
+import 'view/teachers/teacher_list_view.dart';
 
 void main() => runApp(const MyApp());
 
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       // home: TeacherSubjectsPage(teacher: _teacher),
       // Para probar modo MATERIA:
       // home: TeacherSubjectsPage(subject: Subject(id:'s1', name:'Ing. Software I', code:'SW101', credits:3, createdAt:DateTime.now(), updatedAt:DateTime.now())),
-      home: const TeachersPage(),
+      home: const TeacherListView(),
     );
   }
 }
