@@ -22,8 +22,8 @@ class TeacherListViewModel extends ChangeNotifier {
         email: 'juan.pablo@uco.edu',
         phone: '809-555-0101',
         age: 25,
-        department: 'Systems Engineering',
-        specialty: 'Mobile Development',
+        department: 'Ingeniería de Sistemas',
+        specialty: 'Desarrollo Móvil',
         subjects: ['Ingeniería de Software 3', 'Ingeniería de Software Avanzada 2'],
         profileImageUrl: 'https://example.com/avatars/juan.jpg',
         isActive: true,
@@ -37,8 +37,8 @@ class TeacherListViewModel extends ChangeNotifier {
         email: 'maria.lopez@uco.edu',
         phone: '809-555-0102',
         age: 34,
-        department: 'Systems Engineering',
-        specialty: 'Artificial Intelligence',
+        department: 'Ingeniería de Sistemas',
+        specialty: 'Inteligencia Artificial',
         subjects: ['Fundamentos de IA', 'Aprendizaje Automático'],
         profileImageUrl: 'https://example.com/avatars/maria.jpg',
         isActive: true,
@@ -52,8 +52,8 @@ class TeacherListViewModel extends ChangeNotifier {
         email: 'carlos.mendez@uco.edu',
         phone: '809-555-0103',
         age: 45,
-        department: 'Mathematics',
-        specialty: 'Exact sciences',
+        department: 'Matemáticas',
+        specialty: 'Ciencias Exactas',
         subjects: ['Cálculo I', 'Álgebra Lineal', 'Estadística'],
         profileImageUrl: 'https://example.com/avatars/carlos.jpg',
         isActive: true,
@@ -67,8 +67,8 @@ class TeacherListViewModel extends ChangeNotifier {
         email: 'ana.rivera@uco.edu',
         phone: '809-555-0104',
         age: 39,
-        department: 'Systems Engineering',
-        specialty: 'Web Development',
+        department: 'Ingeniería de Sistemas',
+        specialty: 'Desarrollo Web',
         subjects: ['Desarrollo Web', 'Diseño de Bases de Datos'],
         profileImageUrl: 'https://example.com/avatars/ana.jpg',
         isActive: true,
@@ -93,6 +93,17 @@ class TeacherListViewModel extends ChangeNotifier {
       }).toList();
     }
     notifyListeners();
+  }
+
+  void addTeacher(Teacher teacher) {
+    _allTeachers.add(teacher);
+    search(_searchQuery);
+  }
+
+  void updateTeacher(Teacher teacher) {
+    final index = _allTeachers.indexWhere((t) => t.id == teacher.id);
+    if (index >= 0) _allTeachers[index] = teacher;
+    search(_searchQuery);
   }
 
   void deleteTeacher(String id) {

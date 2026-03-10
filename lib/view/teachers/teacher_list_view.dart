@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../model/teachers/teacher.dart';
 import '../../view_model/teachers/teacher_list_view_model.dart';
 import '../teacher_subjects_page.dart';
+import 'teacher_form_view.dart';
 
 class TeacherListView extends StatefulWidget {
   const TeacherListView({super.key});
@@ -123,8 +124,18 @@ class _TeacherListViewState extends State<TeacherListView> {
         ),
         const SizedBox(width: 12),
         FilledButton.icon(
-          onPressed: () {
-            // TODO: Navigate to create teacher form
+          onPressed: () async {
+            final result = await Navigator.of(context).push<Teacher>(
+              MaterialPageRoute(builder: (_) => const TeacherFormView()),
+            );
+            if (result != null) {
+              _viewModel.addTeacher(result);
+              if (mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Profesor creado exitosamente')),
+                );
+              }
+            }
           },
           icon: const Icon(Icons.add),
           label: const Text('Crear'),
@@ -202,8 +213,15 @@ class _TeacherListViewState extends State<TeacherListView> {
           child: const Text('Ver', style: TextStyle(color: Color(0xFF4A90D9), fontSize: 12)),
         ),
         TextButton(
-          onPressed: () {
-            // TODO: Navigate to edit teacher form
+          onPressed: () async {
+            final result = await Navigator.of(context).push<Teacher>(
+              MaterialPageRoute(
+                builder: (_) => TeacherFormView(teacher: teacher),
+              ),
+            );
+            if (result != null) {
+              _viewModel.updateTeacher(result);
+            }
           },
           child: const Text('Editar', style: TextStyle(color: Color(0xFF90CAF9), fontSize: 12)),
         ),

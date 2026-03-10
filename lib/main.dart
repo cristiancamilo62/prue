@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 // import 'model/teachers/teacher.dart';
 // import 'view/teacher_subjects_page.dart';
 import 'view/teachers/teacher_list_view.dart';
+import 'view/teachers/teacher_form_view.dart';
 
 void main() => runApp(const MyApp());
 
@@ -27,6 +28,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
+      routes: {
+        '/teacher-form': (context) => const TeacherFormView(),
+      },
       // Para probar modo PROFESOR:
       // home: TeacherSubjectsPage(teacher: _teacher),
       // Para probar modo MATERIA:
